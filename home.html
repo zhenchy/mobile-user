@@ -315,6 +315,34 @@
       font-size:11px;
       color:#999;
     }
+	.user-popup{
+  position:absolute;
+  right:0;
+  top:28px;
+  width:150px;
+  background:#fff;
+  border-radius:10px;
+  padding:6px 0;
+  display:none;
+  z-index:50;
+  box-shadow:0 6px 14px rgba(0,0,0,.12);
+}
+
+.user-popup-item{
+  padding:8px 14px;
+  font-size:13px;
+  color:#444;
+  cursor:pointer;
+}
+
+.user-popup-item:hover{
+  background:#f5f5f5;
+}
+  .disabled-item {
+    pointer-events: none;  /* tidak bisa diklik */
+    opacity: 1;            /* tetap jelas, tidak pudar */
+    cursor: default;       /* cursor normal */
+  }
   </style>
 </head>
 <!-- Status bar (reusable) -->
@@ -343,6 +371,19 @@
         </div>
         <i class="bi bi-bell fs-5 text-muted me-2"></i>
         <i class="bi bi-funnel fs-5 text-muted"></i>
+
+		<!-- USER ICON -->
+<div class="position-relative" style="padding-left:8px">
+  <i class="bi bi-person-circle fs-5 text-muted user-icon" style="cursor:pointer;"></i>
+
+  <!-- POPUP MENU -->
+  <div id="userPopup" class="user-popup shadow-sm">
+   <div class="user-popup-item disabled-item">user@primus.co.id</div>
+    
+   <div class="user-popup-item text-danger"><a href="index.html" class="text-decoration-none text-dark">Logout</a></div>
+  </div>
+</div>
+
       </div>
 
       <!-- banner -->
@@ -376,33 +417,33 @@
         <!-- item 1 -->
         <div class="col">
           <div class="card-mobile p-2">
-		  <a href="product-detail.html" class="text-decoration-none text-dark">
+		  <a href="product-detail.html?id=Stuff A1" class="text-decoration-none text-dark">
 		    <img src="https://picsum.photos/200?6"
                  class="w-100 mb-2" style="height:120px;object-fit:cover;border-radius:10px;" alt="">
             <div class="price">300.000</div>
-            <div class="product-subtitle">Lorem Ipsum</div>
+            <div class="product-subtitle">Stuff A1</div>
 			</a>
           </div>
         </div>
         <!-- item 2 -->
         <div class="col">
           <div class="card-mobile p-2">
-		  <a href="product-detail.html" class="text-decoration-none text-dark">
+		  <a href="product-detail.html?id=Stuff B2" class="text-decoration-none text-dark">
             <img src="https://picsum.photos/200?5"
                  class="w-100 mb-2" style="height:120px;object-fit:cover;border-radius:10px;" alt="">
             <div class="price">300.000</div>
-            <div class="product-subtitle">Lorem Ipsum</div>
+            <div class="product-subtitle">Stuff B2</div>
 			</a>
           </div>
         </div>
         <!-- item 3 -->
         <div class="col">
           <div class="card-mobile p-2">
-		  <a href="product-detail.html" class="text-decoration-none text-dark">
+		  <a href="product-detail.html?id=Stuff C3" class="text-decoration-none text-dark">
             <img src="https://picsum.photos/200?4"
                  class="w-100 mb-2" style="height:120px;object-fit:cover;border-radius:10px;" alt="">
             <div class="price">300.000</div>
-            <div class="product-subtitle">Lorem Ipsum</div>
+            <div class="product-subtitle">Stuff C3</div>
 			</a>
           </div>
         </div>
@@ -415,35 +456,34 @@
         <a href="#">See all</a>
       </div>
       <div class="row row-cols-3 g-3 mb-3">
-        <!-- duplikat struktur featured -->
         <div class="col">
           <div class="card-mobile p-2">
-		  <a href="product-detail.html" class="text-decoration-none text-dark">
+		  <a href="product-detail.html?id=Stuff X1" class="text-decoration-none text-dark">
             <img src="https://picsum.photos/200?3"
                  class="w-100 mb-2" style="height:120px;object-fit:cover;border-radius:10px;" alt="">
             <div class="price">300.000</div>
-            <div class="product-subtitle">Lorem Ipsum</div>
+            <div class="product-subtitle">Stuff X1</div>
 			</a>
           </div>
         </div>
         <div class="col">
           <div class="card-mobile p-2">
-		  <a href="product-detail.html" class="text-decoration-none text-dark">
+		  <a href="product-detail.html?id=Stuff Y2" class="text-decoration-none text-dark">
             <img src="https://picsum.photos/200?2"
                  class="w-100 mb-2" style="height:120px;object-fit:cover;border-radius:10px;" alt="">
             <div class="price">300.000</div>
-            <div class="product-subtitle">Lorem Ipsum</div>
+            <div class="product-subtitle">Stuff Y2</div>
 			</a>
           </div>
         </div>
       
         <div class="col">
           <div class="card-mobile p-2">
-		  <a href="product-detail.html" class="text-decoration-none text-dark">
+		  <a href="product-detail.html?id=Stuff Z3" class="text-decoration-none text-dark">
             <img src="https://picsum.photos/200?1"
                  class="w-100 mb-2" style="height:120px;object-fit:cover;border-radius:10px;" alt="">
             <div class="price">300.000</div>
-            <div class="product-subtitle">Lorem Ipsum</div>
+            <div class="product-subtitle">Stuff Z3</div>
 			</a>
           </div>
         </div>
@@ -453,4 +493,21 @@
     </main>
   </div>
 </div>
+<script>
+document.querySelector(".user-icon").addEventListener("click", function () {
+  let popup = document.getElementById("userPopup");
+  popup.style.display = (popup.style.display === "block") ? "none" : "block";
+});
+
+// Klik luar popup → popup menutup
+document.addEventListener("click", function(e){
+  let popup = document.getElementById("userPopup");
+  let icon   = document.querySelector(".user-icon");
+
+  if(!popup.contains(e.target) && !icon.contains(e.target)){
+    popup.style.display = "none";
+  }
+});
+</script>
+
 </body>

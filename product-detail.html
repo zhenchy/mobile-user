@@ -380,7 +380,7 @@
            style="height:190px;object-fit:cover;" alt="Product">
 
       <h2 class="page-title mb-1" style="font-size:22px;">
-        Lorem Ipsum dolor sit amet
+        <div id="productName">lorem ispum dolot sit amet</span>
       </h2>
 
       <div class="d-flex align-items-baseline gap-2 mb-2">
@@ -404,9 +404,7 @@
 
       <h6 class="mb-1" style="font-size:15px;">Description</h6>
       <p style="font-size:13px;color:#555;">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel risus erat.
-        Sed ante dui, faucibus ac pulvinar non, viverra bibendum massa. Duis hendrerit
-        orci et arcu sagittis, sed interdum sapien sodales. Nam vitae vulputate elit...
+        Experience exceptional quality and reliable performance with this premium product. Designed with attention to detail, it combines durability, comfort, and modern functionality to meet your everyday needs. Its versatile design makes it suitable for a wide range of uses, whether at home, work, or on the go.
       </p>
 
     <div class="bottom-bar-container mt-auto">
@@ -421,3 +419,18 @@
   </div>
 </div>
 </body>
+
+<script>
+  // Ambil parameter dari URL
+  const params = new URLSearchParams(window.location.search);
+
+  // Ambil nilai id
+  const productId = params.get("id");
+
+  // Cetak ke halaman
+  if (productId) {
+    document.getElementById("productName").innerText = productId;
+  } else {
+    document.getElementById("productName").innerText = "No ID Found";
+  }
+</script>

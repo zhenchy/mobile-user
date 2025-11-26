@@ -371,6 +371,79 @@
       background:#f3f3f3;
       color:#333;
     }
+	
+	
+/* SMARTBOX SPECIAL CARD — SHORT VERSION */
+.smartbox-card {
+  background: linear-gradient(135deg, #4c68ff 0%, #2fb2ff 100%);
+  border-radius: 14px;
+  color: #fff;
+  padding: 12px 14px;      /* lebih kecil */
+  box-shadow: 0 8px 20px rgba(70,120,255,0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glow */
+.smartbox-card::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -40%;
+  width: 160px;            /* diperkecil */
+  height: 160px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 50%;
+  filter: blur(40px);
+}
+
+/* Badge */
+.smartbox-badge {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: rgba(255,255,255,0.18);
+  padding: 3px 8px;
+  font-size: 10px;
+  border-radius: 10px;
+}
+
+/* Icon */
+.smartbox-icon {
+  font-size: 24px;         /* sebelumnya 30px */
+  margin-bottom: 2px;
+  opacity: 0.95;
+}
+
+/* Title */
+.smartbox-title {
+  font-size: 14px;         /* kecil */
+  font-weight: 600;
+}
+
+/* Subtitle */
+.smartbox-sub {
+  font-size: 11px;
+  opacity: 0.9;
+  margin-top: -2px;
+}
+
+/* Digital code */
+.smartbox-code {
+  margin-top: 8px;
+  font-size: 28px;         /* sebelumnya 40px */
+  letter-spacing: 4px;     /* sedikit lebih rapat */
+  font-weight: 700;
+  font-family: "Courier New", monospace;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+/* Switch label */
+.smartbox-switch-label {
+  font-size: 11px;
+  opacity: 0.85;
+}
+
   </style>
 </head>
 <!-- Status bar (reusable) -->
@@ -427,7 +500,7 @@
     <div class="timeline-line"></div>
     <div class="timeline-dot"></div>
     <div class="timeline-content">
-      07:10<br> Lorem ipsum dolor sit amet
+      07:10<br> Package received and is on the way to the customer
     </div>
   </div>
 
@@ -435,7 +508,7 @@
     <div class="timeline-line"></div>
     <div class="timeline-dot"></div>
     <div class="timeline-content">
-      07:00<br> Lorem ipsum dolor sit amet
+      07:00<br> Package picked up by driver
     </div>
   </div>
 
@@ -443,7 +516,7 @@
     <div class="timeline-line"></div>
     <div class="timeline-dot"></div>
     <div class="timeline-content">
-     06:45<br> Lorem ipsum dolor sit amet
+     06:45<br> Seller requested a driver for pickup
     </div>
   </div>
 </div>
@@ -451,21 +524,27 @@
       </div>
 
       <!-- Code card -->
-      <div class="card-mobile mb-3">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <div>
-            <div class="fw-semibold" style="font-size:14px;">Code</div>
-            <small class="text-muted">Box No 341</small>
-          </div>
-          <div class="form-check form-switch d-flex align-items-center m-0">
-            <input class="form-check-input" type="checkbox" checked disabled>
-            <span class="switch-label ms-1">Locked</span>
-          </div>
-        </div>
-        <div class="text-center mt-2" style="font-size:32px;letter-spacing:4px;color:#666;">
-          7882
-        </div>
-      </div>
+      <div class="smartbox-card ">
+
+ 
+
+  <div class="d-flex justify-content-between align-items-start">
+    <div>
+      <div class="smartbox-title">SmartBox Code</div>
+      <div class="smartbox-sub">Box No 341</div>
+    </div>
+
+    <div class="form-check form-switch m-0">
+      <input class="form-check-input" type="checkbox" checked disabled>
+      <span class="smartbox-switch-label">Locked</span>
+    </div>
+  </div>
+
+  <div class="smartbox-code text-center">
+    2887
+  </div>
+
+</div>
 
       <div class="mt-auto">
         <div class="home-indicator"></div>

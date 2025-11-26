@@ -346,7 +346,7 @@
   </style>
 </head>
 <!-- Status bar (reusable) -->
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <body>
 <div class="device">
   <div class="screen">
@@ -387,26 +387,57 @@
       </div>
 
       <!-- banner -->
-      <div class="card-mobile p-0 overflow-hidden">
-        <div class="row g-0">
-          <div class="col-7 p-3 d-flex flex-column justify-content-center">
-            <small class="text-primary mb-1">End Year Sale</small> 
-            <h6 class="mb-2" style="font-size:14px;">Get 20% OFF on All Electronics!</h6>
-            <button class="btn btn-primary btn-sm small-pill px-3 py-1" style="border-radius:999px;font-size:11px;">
-              SHOP NOW
-            </button>
-          </div>
-          <div class="col-5">
-            <img src="img/sale.jpg"
-                 class="w-100 h-100" style="object-fit:cover;" alt="">
-          </div>
-        </div>
-        <div class="d-flex justify-content-center gap-1 py-2">
-          <span class="rounded-pill bg-primary" style="width:6px;height:6px;"></span>
-          <span class="rounded-pill bg-secondary" style="width:6px;height:6px;opacity:.3;"></span>
-          <span class="rounded-pill bg-secondary" style="width:6px;height:6px;opacity:.3;"></span>
-        </div>
+<!-- FULL IMAGE CAROUSEL -->
+<div id="promoCarousel" class="carousel slide card-mobile p-0 overflow-hidden" data-bs-ride="carousel">
+
+  <div class="carousel-inner">
+
+    <!-- Slide 1 -->
+    <div class="carousel-item active">
+      <img src="img/sale3.jpg" class="d-block w-100" style="height:170px; object-fit:cover;">
+      <div class="carousel-caption d-flex flex-column justify-content-center" 
+           style="bottom:12px;">
+        <small class="text-light fw-bold">End Year Sale</small>
+        <h6 class="text-light fw-semibold" style="font-size:14px;">Get 11% OFF on All Electronics!</h6>
+        <button class="btn btn-sm small-pill px-3 py-1" 
+                style="background:rgba(255,255,255,.9);color:#333;border-radius:999px;font-size:11px;">
+          SHOP NOW
+        </button>
       </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="carousel-item">
+      <img src="img/sale2.jpg" class="d-block w-100" style="height:170px; object-fit:cover;">
+      <div class="carousel-caption d-flex flex-column justify-content-center" style="bottom:12px;">
+        <small class="text-light fw-bold">Special Weekend</small>
+        <h6 class="text-light fw-semibold" style="font-size:14px;">Buy 1 Get 1 Selected Items</h6>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="carousel-item">
+      <img src="img/sale.jpg" class="d-block w-100" style="height:170px; object-fit:cover;">
+      <div class="carousel-caption d-flex flex-column justify-content-center" style="bottom:12px;">
+        <small class="text-light fw-bold">New Arrivals</small>
+        <h6 class="text-light fw-semibold" style="font-size:14px;">Latest gadgets are now available</h6>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Carousel Indicators -->
+  <div class="carousel-indicators" style="bottom:-6px;">
+    <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="2"></button>
+  </div>
+
+</div>
+
+	  
+	  
+	  
 
       <!-- Featured -->
       <div class="section-header">

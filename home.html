@@ -24,18 +24,119 @@
     .screen{
       background:#fff;
       border-radius:32px;
-      min-height:720px;
-      padding:16px 24px 24px;
+      height:820px;
       display:flex;
       flex-direction:column;
+      overflow:hidden;
+      position:relative;
     }
 
     .status-bar{
       font-size:12px;
       color:#999;
-      margin-bottom:8px;
+      padding:16px 20px 10px;
+      background: #fff;
+      flex-shrink: 0;
     }
     .status-bar i{font-size:13px;}
+
+    .header-section {
+      background: #fff;
+      padding: 8px 16px 14px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      position: relative;
+      z-index: 10;
+    }
+    .header-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-logo {
+      /* width: 36px; */
+      height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    /* Search Icon & Expandable Search */
+    .search-container {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .search-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .search-icon i {
+      color: #555;
+      font-size: 20px;
+    }
+    .search-icon:hover i {
+      color: #333;
+    }
+    .search-bar-header {
+      background: #f0f0f0;
+      border-radius: 20px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .search-bar-header.active {
+      width: 100%;
+      opacity: 1;
+    }
+    .search-bar-header i {
+      color: #888;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .search-bar-header input {
+      border: none;
+      background: transparent;
+      font-size: 13px;
+      width: 100%;
+      outline: none;
+      color: #333;
+    }
+    .search-bar-header input::placeholder {
+      color: #999;
+    }
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .header-icons i {
+      color: #555;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .content-section {
+      flex: 1;
+      padding: 16px 20px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      background: #f8f9fa;
+    }
+    .content-section::-webkit-scrollbar {
+      width: 4px;
+    }
+    .content-section::-webkit-scrollbar-thumb {
+      background: #ddd;
+      border-radius: 4px;
+    }
 
     .page-title{
       margin-top:12px;
@@ -315,6 +416,55 @@
       font-size:11px;
       color:#999;
     }
+
+    /* Service Icons - Traveloka Style */
+    .services-section {
+      margin: 16px 0;
+    }
+    .services-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px 8px;
+    }
+    .service-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+    .service-item:hover {
+      transform: scale(1.05);
+    }
+    .service-icon {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+    .service-icon.ride { color: #43a047; }
+    .service-icon.car { color: #1976d2; }
+    .service-icon.send { color: #f57c00; }
+    .service-icon.mart { color: #d81b60; }
+    .service-icon.food { color: #e53935; }
+    .service-badge {
+      font-size: 8px;
+      font-weight: 600;
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 8px;
+      letter-spacing: 0.3px;
+    }
+    .service-badge.ride { background: #43a047; }
+    .service-badge.car { background: #1976d2; }
+    .service-badge.send { background: #f57c00; }
+    .service-badge.mart { background: #d81b60; }
+    .service-badge.food { background: #e53935; }
+
 	.user-popup{
   position:absolute;
   right:0;
@@ -361,30 +511,39 @@
       </span>
     </div>
 
-    <main class="flex-grow-1">
-
-      <!-- search + icons -->
-      <div class="d-flex align-items-center mb-3">
-        <div class="search-box flex-grow-1 me-2">
-          <i class="bi bi-search text-muted me-2"></i>
-          <input type="text" placeholder="Search Your Product">
+    <!-- Header Section (static, tidak scroll) -->
+    <div class="header-section">
+      <div class="header-row">
+        <img src="img/logo.jpg" alt="Logo" class="header-logo">
+        
+        <!-- Search Bar (hidden by default, expands when active) -->
+        <div class="search-container">
+          <div class="search-bar-header" id="searchBar">
+            <i class="bi bi-search"></i>
+            <input type="text" id="searchInput" placeholder="Search Your Product" onblur="hideSearch()">
+          </div>
         </div>
-        <i class="bi bi-bell fs-5 text-muted me-2"></i>
-        <i class="bi bi-funnel fs-5 text-muted"></i>
 
-		<!-- USER ICON -->
-<div class="position-relative" style="padding-left:8px">
-  <i class="bi bi-person-circle fs-5 text-muted user-icon" style="cursor:pointer;"></i>
-
-  <!-- POPUP MENU -->
-  <div id="userPopup" class="user-popup shadow-sm">
-   <div class="user-popup-item disabled-item">user@primus.co.id</div>
-    
-   <div class="user-popup-item text-danger"><a href="index.html" class="text-decoration-none text-dark">Logout</a></div>
-  </div>
-</div>
-
+        <div class="header-icons">
+          <!-- Search Icon -->
+          <div class="search-icon" id="searchIcon" onclick="showSearch()">
+            <i class="bi bi-search"></i>
+          </div>
+          <i class="bi bi-bell"></i>
+          <div class="position-relative">
+            <i class="bi bi-person-circle user-icon" style="cursor:pointer;"></i>
+            <!-- POPUP MENU -->
+            <div id="userPopup" class="user-popup shadow-sm">
+              <div class="user-popup-item disabled-item">user@primus.co.id</div>
+              <div class="user-popup-item text-danger"><a href="index.html" class="text-decoration-none text-dark">Logout</a></div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <!-- Content Section (scrollable) -->
+    <div class="content-section">
 
       <!-- banner -->
 <!-- FULL IMAGE CAROUSEL -->
@@ -435,9 +594,33 @@
 
 </div>
 
-	  
-	  
-	  
+      <!-- Services -->
+      <div class="services-section">
+        <div class="services-card">
+          <div class="services-grid">
+            <a href="hbride.html" class="service-item">
+              <i class="bi bi-scooter service-icon ride"></i>
+              <span class="service-badge ride">HBRide</span>
+            </a>
+            <a href="hbcar.html" class="service-item">
+              <i class="bi bi-car-front-fill service-icon car"></i>
+              <span class="service-badge car">HBCar</span>
+            </a>
+            <a href="hbsend.html" class="service-item">
+              <i class="bi bi-box-seam-fill service-icon send"></i>
+              <span class="service-badge send">HBSend</span>
+            </a>
+            <a href="hbmart.html" class="service-item">
+              <i class="bi bi-cart3 service-icon mart"></i>
+              <span class="service-badge mart">HBMart</span>
+            </a>
+            <a href="hbfood.html" class="service-item">
+              <i class="bi bi-cup-hot-fill service-icon food"></i>
+              <span class="service-badge food">HBFood</span>
+            </a>
+          </div>
+        </div>
+      </div>
 
       <!-- Featured -->
       <div class="section-header">
@@ -521,10 +704,11 @@
       </div>
 
       <div class="home-indicator"></div>
-    </main>
+    </div>
   </div>
 </div>
 <script>
+// User popup toggle
 document.querySelector(".user-icon").addEventListener("click", function () {
   let popup = document.getElementById("userPopup");
   popup.style.display = (popup.style.display === "block") ? "none" : "block";
@@ -539,6 +723,26 @@ document.addEventListener("click", function(e){
     popup.style.display = "none";
   }
 });
+
+// Search show/hide functions
+function showSearch() {
+  document.getElementById('searchIcon').style.display = 'none';
+  document.getElementById('searchBar').classList.add('active');
+  setTimeout(() => {
+    document.getElementById('searchInput').focus();
+  }, 100);
+}
+
+function hideSearch() {
+  let searchInput = document.getElementById('searchInput');
+  // Only hide if input is empty
+  if (searchInput.value.trim() === '') {
+    document.getElementById('searchBar').classList.remove('active');
+    setTimeout(() => {
+      document.getElementById('searchIcon').style.display = 'flex';
+    }, 300);
+  }
+}
 </script>
 
 </body>

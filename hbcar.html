@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HBCar - Taksi Online</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <style>
+    body {
+      background:#f3f3f3;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+
+    .device{
+      width:390px;
+      margin:40px auto;
+      background:#333;
+      border-radius:40px;
+      padding:14px;
+      box-shadow:0 20px 40px rgba(0,0,0,.35);
+    }
+    .screen{
+      background:#fff;
+      border-radius:32px;
+      height:820px;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .status-bar{
+      font-size:12px;
+      color:#999;
+      padding:16px 20px 10px;
+      background: #fff;
+      flex-shrink: 0;
+    }
+    .status-bar i{font-size:13px;}
+
+    .header-section {
+      background: #fff;
+      padding: 8px 16px 14px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      position: relative;
+      z-index: 10;
+    }
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .back-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f0f0;
+      color: #333;
+      text-decoration: none;
+      font-size: 18px;
+      transition: background 0.2s;
+    }
+    .back-btn:hover {
+      background: #e5e5e5;
+      color: #333;
+    }
+    .header-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .header-icon {
+      color: #1976d2;
+      font-size: 20px;
+    }
+    .header-badge {
+      font-size: 9px;
+      font-weight: 600;
+      color: #fff;
+      background: #1976d2;
+      padding: 2px 6px;
+      border-radius: 8px;
+      letter-spacing: 0.3px;
+    }
+
+    .content-section {
+      flex: 1;
+      background: #f8f9fa;
+      padding: 16px 20px;
+      padding-bottom: 30px;
+      position: relative;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    .content-section::-webkit-scrollbar {
+      width: 4px;
+    }
+    .content-section::-webkit-scrollbar-thumb {
+      background: #ddd;
+      border-radius: 4px;
+    }
+
+    .location-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: 16px;
+    }
+    .location-input {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .location-input:last-child {
+      border-bottom: none;
+    }
+    .location-dots {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 4px;
+    }
+    .dot-pickup {
+      width: 12px;
+      height: 12px;
+      background: #0066ff;
+      border-radius: 50%;
+    }
+    .dot-line {
+      width: 2px;
+      height: 24px;
+      background: #e0e0e0;
+      margin: 4px 0;
+    }
+    .dot-destination {
+      width: 12px;
+      height: 12px;
+      background: #ff4444;
+      border-radius: 50%;
+    }
+    .input-group-custom {
+      flex: 1;
+    }
+    .input-group-custom label {
+      font-size: 11px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .input-group-custom input {
+      width: 100%;
+      border: none;
+      font-size: 14px;
+      color: #333;
+      padding: 4px 0;
+      outline: none;
+    }
+    .input-group-custom input::placeholder {
+      color: #aaa;
+    }
+
+    .car-options {
+      margin-bottom: 16px;
+    }
+    .car-option {
+      display: flex;
+      align-items: center;
+      padding: 14px;
+      background: #fff;
+      border: 2px solid #f0f0f0;
+      border-radius: 14px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .car-option:hover, .car-option.active {
+      border-color: #0066ff;
+      background: #f0f7ff;
+    }
+    .car-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #0052cc, #0066ff);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 22px;
+      margin-right: 14px;
+    }
+    .car-info {
+      flex: 1;
+    }
+    .car-info h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0 0 2px;
+      color: #333;
+    }
+    .car-info span {
+      font-size: 12px;
+      color: #777;
+    }
+    .car-price {
+      text-align: right;
+    }
+    .car-price .price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0066ff;
+    }
+    .car-price .eta {
+      font-size: 11px;
+      color: #999;
+    }
+
+    .features-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .feature-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #e3f2fd;
+      color: #1976d2;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .feature-badge i {
+      font-size: 12px;
+    }
+
+    .promo-banner {
+      background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .promo-banner i {
+      font-size: 24px;
+      color: #1976d2;
+    }
+    .promo-banner span {
+      font-size: 13px;
+      color: #0d47a1;
+    }
+
+    .btn-order {
+      background: linear-gradient(135deg, #0052cc 0%, #0066ff 100%);
+      border: none;
+      border-radius: 14px;
+      color: #fff;
+      font-weight: 600;
+      padding: 16px;
+      width: 100%;
+      font-size: 16px;
+      box-shadow: 0 8px 24px rgba(0,102,255,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-order:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0,102,255,0.4);
+      color: #fff;
+    }
+
+    .payment-method {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      margin-bottom: 12px;
+    }
+    .payment-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .wallet-icon {
+      width: 36px;
+      height: 36px;
+      background: #e3f2fd;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1976d2;
+      font-size: 18px;
+    }
+    .payment-info h5 {
+      font-size: 13px;
+      margin: 0;
+      color: #333;
+    }
+    .payment-info span {
+      font-size: 12px;
+      color: #999;
+    }
+    .payment-method i.bi-chevron-right {
+      color: #ccc;
+    }
+
+    .home-indicator{
+      width:120px;
+      height:4px;
+      border-radius:999px;
+      background:#d0d0d0;
+      margin:12px auto;
+    }
+
+    /* POPUP STYLE */
+    .popup {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .popup-box {
+      width: 85%;
+      max-width: 300px;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+      text-align: center;
+      font-family: sans-serif;
+    }
+    .popup-box .title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    .popup-box .msg {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .ok-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #0052cc 0%, #0066ff 100%);
+      border: none;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .ok-btn:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+<div class="device">
+  <div class="screen" style="position:relative;">
+
+    <!-- POPUP -->
+    <div id="popup" class="popup">
+      <div class="popup-box">
+        <h4 class="title">HBCar</h4>
+        <p class="msg" id="popupMsg">Pesan akan muncul di sini</p>
+        <button class="ok-btn" onclick="closePopup()">OK</button>
+      </div>
+    </div>
+
+    <!-- Status bar -->
+    <div class="status-bar d-flex justify-content-between align-items-center">
+      <span>9:31</span>
+      <span class="d-flex align-items-center gap-1">
+        <i class="bi bi-reception-4"></i>
+        <i class="bi bi-wifi"></i>
+        <i class="bi bi-battery-full"></i>
+      </span>
+    </div>
+
+    <!-- Header -->
+    <div class="header-section">
+      <div class="header-title">
+        <a href="home.html" class="back-btn"><i class="bi bi-chevron-left"></i></a>
+        <div class="header-brand">
+          <i class="bi bi-car-front-fill header-icon"></i>
+          <span class="header-badge">HBCar</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content-section">
+      <!-- Location Input -->
+      <div class="location-card">
+        <div class="location-input">
+          <div class="location-dots">
+            <div class="dot-pickup"></div>
+          </div>
+          <div class="input-group-custom">
+            <label>Lokasi Jemput</label>
+            <input type="text" placeholder="Pilih lokasi jemput..." id="pickup">
+          </div>
+          <i class="bi bi-geo-alt text-muted"></i>
+        </div>
+        <div class="location-input">
+          <div class="location-dots">
+            <div class="dot-destination"></div>
+          </div>
+          <div class="input-group-custom">
+            <label>Tujuan</label>
+            <input type="text" placeholder="Mau kemana?" id="destination">
+          </div>
+          <i class="bi bi-search text-muted"></i>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <div class="features-row">
+        <div class="feature-badge"><i class="bi bi-shield-check"></i> Aman</div>
+        <div class="feature-badge"><i class="bi bi-snow"></i> AC</div>
+        <div class="feature-badge"><i class="bi bi-people"></i> 4 Kursi</div>
+        <div class="feature-badge"><i class="bi bi-luggage"></i> Bagasi</div>
+      </div>
+
+      <!-- Car Options -->
+      <div class="car-options">
+        <div class="car-option active" onclick="selectCar(this, 'standard')">
+          <div class="car-icon">
+            <i class="bi bi-car-front"></i>
+          </div>
+          <div class="car-info">
+            <h4>HBCar Standard</h4>
+            <span>Mobil nyaman sehari-hari</span>
+          </div>
+          <div class="car-price">
+            <div class="price">Rp 35.000</div>
+            <div class="eta">~5 min</div>
+          </div>
+        </div>
+        <div class="car-option" onclick="selectCar(this, 'comfort')">
+          <div class="car-icon" style="background: linear-gradient(135deg, #1a237e, #3949ab);">
+            <i class="bi bi-car-front-fill"></i>
+          </div>
+          <div class="car-info">
+            <h4>HBCar Comfort</h4>
+            <span>Mobil premium lebih luas</span>
+          </div>
+          <div class="car-price">
+            <div class="price">Rp 55.000</div>
+            <div class="eta">~7 min</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Promo Banner -->
+      <div class="promo-banner">
+        <i class="bi bi-percent"></i>
+        <span><strong>Diskon 20%</strong> untuk perjalanan pertama!</span>
+      </div>
+
+      <!-- Payment Method -->
+      <div class="payment-method">
+        <div class="payment-left">
+          <div class="wallet-icon">
+            <i class="bi bi-wallet2"></i>
+          </div>
+          <div class="payment-info">
+            <h5>HBPay</h5>
+            <span>Saldo: Rp 150.000</span>
+          </div>
+        </div>
+        <i class="bi bi-chevron-right"></i>
+      </div>
+
+      <!-- Order Button -->
+      <button class="btn btn-order" onclick="orderCar()">
+        <i class="bi bi-car-front-fill me-2"></i>Pesan HBCar
+      </button>
+
+      <div class="home-indicator"></div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+let selectedCar = 'standard';
+
+function openPopup(title, message) {
+  document.querySelector('.popup-box .title').textContent = title;
+  document.getElementById('popupMsg').innerHTML = message;
+  document.getElementById('popup').style.display = 'flex';
+}
+
+function closePopup() {
+  document.getElementById('popup').style.display = 'none';
+}
+
+function selectCar(element, type) {
+  document.querySelectorAll('.car-option').forEach(el => el.classList.remove('active'));
+  element.classList.add('active');
+  selectedCar = type;
+}
+
+function orderCar() {
+  const pickup = document.getElementById('pickup').value;
+  const destination = document.getElementById('destination').value;
+  
+  if (!pickup || !destination) {
+    openPopup('Perhatian', 'Silakan isi lokasi jemput dan tujuan');
+    return;
+  }
+  
+  const carType = selectedCar === 'comfort' ? 'HBCar Comfort' : 'HBCar Standard';
+  openPopup('Mencari Driver', 'Mencari driver ' + carType + ' terdekat...<br><br><b>Jemput:</b> ' + pickup + '<br><b>Tujuan:</b> ' + destination);
+}
+</script>
+</body>
+</html>
+

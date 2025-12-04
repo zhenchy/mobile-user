@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HBRide - Ojek Online</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <style>
+    body {
+      background:#f3f3f3;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+
+    .device{
+      width:390px;
+      margin:40px auto;
+      background:#333;
+      border-radius:40px;
+      padding:14px;
+      box-shadow:0 20px 40px rgba(0,0,0,.35);
+    }
+    .screen{
+      background:#fff;
+      border-radius:32px;
+      height:820px;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .status-bar{
+      font-size:12px;
+      color:#999;
+      padding:16px 20px 10px;
+      background: #fff;
+      flex-shrink: 0;
+    }
+    .status-bar i{font-size:13px;}
+
+    .header-section {
+      background: #fff;
+      padding: 8px 16px 14px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      position: relative;
+      z-index: 10;
+    }
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .back-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f0f0;
+      color: #333;
+      text-decoration: none;
+      font-size: 18px;
+      transition: background 0.2s;
+    }
+    .back-btn:hover {
+      background: #e5e5e5;
+      color: #333;
+    }
+    .header-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .header-icon {
+      color: #43a047;
+      font-size: 20px;
+    }
+    .header-badge {
+      font-size: 9px;
+      font-weight: 600;
+      color: #fff;
+      background: #43a047;
+      padding: 2px 6px;
+      border-radius: 8px;
+      letter-spacing: 0.3px;
+    }
+
+    .content-section {
+      flex: 1;
+      background: #f8f9fa;
+      padding: 16px 20px;
+      padding-bottom: 30px;
+      position: relative;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    .content-section::-webkit-scrollbar {
+      width: 4px;
+    }
+    .content-section::-webkit-scrollbar-thumb {
+      background: #ddd;
+      border-radius: 4px;
+    }
+
+    .location-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: 16px;
+    }
+    .location-input {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .location-input:last-child {
+      border-bottom: none;
+    }
+    .location-dots {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 4px;
+    }
+    .dot-pickup {
+      width: 12px;
+      height: 12px;
+      background: #00880a;
+      border-radius: 50%;
+    }
+    .dot-line {
+      width: 2px;
+      height: 24px;
+      background: #e0e0e0;
+      margin: 4px 0;
+    }
+    .dot-destination {
+      width: 12px;
+      height: 12px;
+      background: #ff4444;
+      border-radius: 50%;
+    }
+    .input-group-custom {
+      flex: 1;
+    }
+    .input-group-custom label {
+      font-size: 11px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .input-group-custom input {
+      width: 100%;
+      border: none;
+      font-size: 14px;
+      color: #333;
+      padding: 4px 0;
+      outline: none;
+    }
+    .input-group-custom input::placeholder {
+      color: #aaa;
+    }
+
+    .map-preview {
+      border-radius: 16px;
+      overflow: hidden;
+      height: 200px;
+      background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .map-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .map-overlay {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ride-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ride-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #00880a, #00aa0d);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 20px;
+    }
+    .ride-details h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0;
+      color: #333;
+    }
+    .ride-details span {
+      font-size: 12px;
+      color: #777;
+    }
+    .ride-price {
+      text-align: right;
+    }
+    .ride-price .price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #00880a;
+    }
+    .ride-price .eta {
+      font-size: 11px;
+      color: #999;
+    }
+
+    .promo-banner {
+      background: linear-gradient(90deg, #fff8e1 0%, #ffecb3 100%);
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .promo-banner i {
+      font-size: 24px;
+      color: #ff9800;
+    }
+    .promo-banner span {
+      font-size: 13px;
+      color: #795548;
+    }
+
+    .btn-order {
+      background: linear-gradient(135deg, #00880a 0%, #00aa0d 100%);
+      border: none;
+      border-radius: 14px;
+      color: #fff;
+      font-weight: 600;
+      padding: 16px;
+      width: 100%;
+      font-size: 16px;
+      box-shadow: 0 8px 24px rgba(0,136,10,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-order:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0,136,10,0.4);
+      color: #fff;
+    }
+
+    .payment-method {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      margin-bottom: 12px;
+    }
+    .payment-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .wallet-icon {
+      width: 36px;
+      height: 36px;
+      background: #e3f2fd;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1976d2;
+      font-size: 18px;
+    }
+    .payment-info h5 {
+      font-size: 13px;
+      margin: 0;
+      color: #333;
+    }
+    .payment-info span {
+      font-size: 12px;
+      color: #999;
+    }
+    .payment-method i.bi-chevron-right {
+      color: #ccc;
+    }
+
+    .home-indicator{
+      width:120px;
+      height:4px;
+      border-radius:999px;
+      background:#d0d0d0;
+      margin:12px auto;
+    }
+
+    /* POPUP STYLE */
+    .popup {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .popup-box {
+      width: 85%;
+      max-width: 300px;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+      text-align: center;
+      font-family: sans-serif;
+    }
+    .popup-box .title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    .popup-box .msg {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .ok-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #00880a 0%, #00aa0d 100%);
+      border: none;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .ok-btn:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+<div class="device">
+  <div class="screen" style="position:relative;">
+
+    <!-- POPUP -->
+    <div id="popup" class="popup">
+      <div class="popup-box">
+        <h4 class="title">HBRide</h4>
+        <p class="msg" id="popupMsg">Pesan akan muncul di sini</p>
+        <button class="ok-btn" onclick="closePopup()">OK</button>
+      </div>
+    </div>
+
+    <!-- Status bar -->
+    <div class="status-bar d-flex justify-content-between align-items-center">
+      <span>9:31</span>
+      <span class="d-flex align-items-center gap-1">
+        <i class="bi bi-reception-4"></i>
+        <i class="bi bi-wifi"></i>
+        <i class="bi bi-battery-full"></i>
+      </span>
+    </div>
+
+    <!-- Header -->
+    <div class="header-section">
+      <div class="header-title">
+        <a href="home.html" class="back-btn"><i class="bi bi-chevron-left"></i></a>
+        <div class="header-brand">
+          <i class="bi bi-scooter header-icon"></i>
+          <span class="header-badge">HBRide</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content-section">
+      <!-- Location Input -->
+      <div class="location-card">
+        <div class="location-input">
+          <div class="location-dots">
+            <div class="dot-pickup"></div>
+          </div>
+          <div class="input-group-custom">
+            <label>Lokasi Jemput</label>
+            <input type="text" placeholder="Pilih lokasi jemput..." id="pickup">
+          </div>
+          <i class="bi bi-geo-alt text-muted"></i>
+        </div>
+        <div class="location-input">
+          <div class="location-dots">
+            <div class="dot-destination"></div>
+          </div>
+          <div class="input-group-custom">
+            <label>Tujuan</label>
+            <input type="text" placeholder="Mau kemana?" id="destination">
+          </div>
+          <i class="bi bi-search text-muted"></i>
+        </div>
+      </div>
+
+      <!-- Map Preview -->
+      <div class="map-preview">
+        <img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/106.8456,-6.2088,13,0/400x200?access_token=pk.placeholder" 
+             alt="Map" onerror="this.style.display='none'">
+        <div class="map-overlay">
+          <div class="ride-info">
+            <div class="ride-icon">
+              <i class="bi bi-scooter"></i>
+            </div>
+            <div class="ride-details">
+              <h4>HBRide</h4>
+              <span>1-2 penumpang</span>
+            </div>
+          </div>
+          <div class="ride-price">
+            <div class="price">Rp 15.000</div>
+            <div class="eta">~8 min</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Promo Banner -->
+      <div class="promo-banner">
+        <i class="bi bi-ticket-perforated-fill"></i>
+        <span><strong>Hemat Rp5.000!</strong> Pakai voucher HBRIDE50</span>
+      </div>
+
+      <!-- Payment Method -->
+      <div class="payment-method">
+        <div class="payment-left">
+          <div class="wallet-icon">
+            <i class="bi bi-wallet2"></i>
+          </div>
+          <div class="payment-info">
+            <h5>HBPay</h5>
+            <span>Saldo: Rp 150.000</span>
+          </div>
+        </div>
+        <i class="bi bi-chevron-right"></i>
+      </div>
+
+      <!-- Order Button -->
+      <button class="btn btn-order" onclick="orderRide()">
+        <i class="bi bi-scooter me-2"></i>Pesan HBRide
+      </button>
+
+      <div class="home-indicator"></div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function openPopup(title, message) {
+  document.querySelector('.popup-box .title').textContent = title;
+  document.getElementById('popupMsg').innerHTML = message;
+  document.getElementById('popup').style.display = 'flex';
+}
+
+function closePopup() {
+  document.getElementById('popup').style.display = 'none';
+}
+
+function orderRide() {
+  const pickup = document.getElementById('pickup').value;
+  const destination = document.getElementById('destination').value;
+  
+  if (!pickup || !destination) {
+    openPopup('Perhatian', 'Silakan isi lokasi jemput dan tujuan');
+    return;
+  }
+  
+  openPopup('Mencari Driver', 'Mencari driver HBRide terdekat...<br><br><b>Jemput:</b> ' + pickup + '<br><b>Tujuan:</b> ' + destination);
+}
+</script>
+</body>
+</html>
+

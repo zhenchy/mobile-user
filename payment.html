@@ -28,10 +28,25 @@
     .screen {
       background: #ffffff;
       border-radius: 32px;
-      min-height: 720px;
+      height: 820px;
       padding: 16px 24px 24px;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+    .screen-content{
+      flex:1;
+      overflow-y:auto;
+      overflow-x:hidden;
+      padding-bottom:20px;
+    }
+    .screen-content::-webkit-scrollbar{
+      width:4px;
+    }
+    .screen-content::-webkit-scrollbar-thumb{
+      background:#ddd;
+      border-radius:4px;
     }
 
     /* Status bar (jam, sinyal, dll) */

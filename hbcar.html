@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HBCar - Taksi Online</title>
+  <title>BKCar - Taksi Online</title>
 
   <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -386,7 +386,7 @@
     <!-- POPUP -->
     <div id="popup" class="popup">
       <div class="popup-box">
-        <h4 class="title">HBCar</h4>
+        <h4 class="title">BKCar</h4>
         <p class="msg" id="popupMsg">Pesan akan muncul di sini</p>
         <button class="ok-btn" onclick="closePopup()">OK</button>
       </div>
@@ -408,7 +408,7 @@
         <a href="home.html" class="back-btn"><i class="bi bi-chevron-left"></i></a>
         <div class="header-brand">
           <i class="bi bi-car-front-fill header-icon"></i>
-          <span class="header-badge">HBCar</span>
+          <span class="header-badge">BKCar</span>
         </div>
       </div>
     </div>
@@ -454,7 +454,7 @@
             <i class="bi bi-car-front"></i>
           </div>
           <div class="car-info">
-            <h4>HBCar Standard</h4>
+            <h4>BKCar Standard</h4>
             <span>Mobil nyaman sehari-hari</span>
           </div>
           <div class="car-price">
@@ -467,7 +467,7 @@
             <i class="bi bi-car-front-fill"></i>
           </div>
           <div class="car-info">
-            <h4>HBCar Comfort</h4>
+            <h4>BKCar Comfort</h4>
             <span>Mobil premium lebih luas</span>
           </div>
           <div class="car-price">
@@ -490,7 +490,7 @@
             <i class="bi bi-wallet2"></i>
           </div>
           <div class="payment-info">
-            <h5>HBPay</h5>
+            <h5>BKPay</h5>
             <span>Saldo: Rp 150.000</span>
           </div>
         </div>
@@ -499,7 +499,7 @@
 
       <!-- Order Button -->
       <button class="btn btn-order" onclick="orderCar()">
-        <i class="bi bi-car-front-fill me-2"></i>Pesan HBCar
+        <i class="bi bi-car-front-fill me-2"></i>Pesan BKCar
       </button>
 
       <div class="home-indicator"></div>
@@ -537,7 +537,7 @@ function orderCar() {
     return;
   }
   
-  const carType = selectedCar === 'comfort' ? 'HBCar Comfort' : 'HBCar Standard';
+  const carType = selectedCar === 'comfort' ? 'BKCar Comfort' : 'BKCar Standard';
   openPopup('Mencari Driver', 'Mencari driver ' + carType + ' terdekat...<br><br><b>Jemput:</b> ' + pickup + '<br><b>Tujuan:</b> ' + destination);
 }
 </script>
